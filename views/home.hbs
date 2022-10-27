@@ -1,0 +1,14 @@
+{{>hero}}
+
+<div id="top-meals">
+
+    <h2> TOP MEALS</h2>
+    {{#each mealKits}}
+    {{>mealkit this}}
+    {{else}}
+    <tr>
+        <td colspan="4">There are no meal to show.</td>
+    </tr>
+    {{/each}}
+
+</div> 

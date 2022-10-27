@@ -1,0 +1,237 @@
+/*************************************************************************************
+* WEB322 - 2227 Project
+* I declare that this assignment is my own work in accordance with the Seneca Academic
+* Policy. No part of this assignment has been copied manually or electronically from
+* any other source (including web sites) or distributed to other students.
+*
+* Student Name  : Kseniia Katashova 
+* Student ID    : 138164207
+* Course/Section: WEB322/NEE
+*
+**************************************************************************************/
+html{
+    height: 100%;
+}
+
+body{
+    margin: 0;
+    color:rgb(85, 192, 144);
+    background-color: rgb(250, 245, 245);
+
+    min-height: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+ h5{
+    text-align: center;
+    color: #252421;
+}
+
+
+/************** NAVIGATION BAR ***************/
+.top-line{
+    width:80%;
+    margin: 0 auto;
+}
+
+
+header{
+    background: #d4d0c6;
+    padding-bottom: 15px;
+}
+
+.logo{
+    float:left;
+    padding: 10px 0;
+    max-height: 45px;
+}
+
+nav ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav li{
+    display: inline-block;
+    margin-left: 70px;
+    padding-top: 25px;
+}
+
+nav a{
+color: #444;
+text-decoration: none;
+text-transform: uppercase;
+font-size: 14px;
+}
+
+nav a:hover{
+    color: #000;
+}
+
+
+/*********** HERO SECTION **************/
+h2{
+    text-align: center;
+    color: rgb(100, 95, 95);
+    
+}
+
+.prominentImage div{
+    text-align: center;
+}
+
+.prominentImage img{
+    height: 345px;
+    width: 70%;
+    margin: auto;
+    display: block;
+
+}
+
+
+/*********** CONTENT SECTION *************/
+#service{
+    color: rgb(245, 244, 239);
+    background-color: rgb(226, 226, 226);
+    border: 1px solid #252421;
+    padding: 5px;
+    margin: 30px;
+}
+
+.container-service{
+    width: 100%;
+    height: 100;
+    
+}
+
+.col{
+    width: 190px;
+    height: 300px;
+    background-color: rgb(226, 226, 226);
+    float:left;
+    
+    padding: 20px;
+    margin: 60px; 
+}
+
+.col h3{
+    text-align: center;
+    font-size: 20px;
+    color: rgba(43, 31, 31, 0.699);
+}
+
+.col p{
+    text-align: center;
+    color: rgb(51, 41, 28);
+    font-size: 18px;
+}
+
+.col img{
+    width: 220px;
+}
+
+
+
+/********** TOP MEALS SECTION ***********/
+
+#top-meals{
+    color: black;
+    
+}
+
+
+.container-meal{
+
+    width: 100%;
+    height: 100px;
+    background-color: rgb(255, 221, 127);
+}
+
+.meal{
+    width: 270px; 
+    height: 380px;
+    border: 1px solid #49463e;
+    float:left;
+    padding: 20px;
+    margin: 80px;
+    color: #000;
+}
+
+.meal img{
+    width: 270px;
+    height: auto;
+}
+
+.meal h3{
+    text-align: center;
+    font-size: 20px;
+    color: #444;
+    text-decoration: underline;
+}
+
+
+
+
+
+
+/*********** FOOTER   *************/
+footer{
+    color: #42413d;
+    text-align: center;
+}
+
+.footer-container
+{
+  margin-top: 150px;
+  width:100%;
+  padding: 40px 15%;
+  background: rgb(119, 116, 102);
+  color:rgb(255, 238, 217);
+  display: flex; /* was flex */
+}
+
+.footer-container  div {
+    text-align: center;
+}
+
+.col-2{
+    flex-grow: 2;
+}
+
+.footer-container div h4{
+   font-weight: 300;
+   margin-bottom: 30px;
+   letter-spacing: 1px;
+}
+
+.col-1 a{
+    display: block;
+    text-decoration: none;
+    color:#f1ece0;
+    margin-top: 15px;
+}
+
+.col-2 p{
+    font-size: large;
+}
+
+.col-2 img{
+    width: 40px;
+}
+
+
+/******** Sign Up Form *********/
+
+span{
+    color: red;
+    font-size: smaller;
+}
+
+label{
+    color: rgb(54, 53, 49);
+}
+
+
