@@ -36,10 +36,6 @@ app.use(express.static(path.join(__dirname, "/assets")));
 
 
 // Add your routes here
-// app.get("/", function(req, res){
-//     res.render("home");
-// });
-
 app.get("/", (req, res) => {
 
 
@@ -47,8 +43,6 @@ app.get("/", (req, res) => {
         mealKits: mealkitList.getTopMealkits()
     });
 });
-
-
 
 
 
@@ -64,13 +58,13 @@ app.get("/menu", (req, res)=> {
     // });
 });
 
+//Route to the Sign Up Page
 app.get("/sign-up", function(req, res){
     res.render("signup");
 });
 
 //update for assignment 3
 app.post("/sign-up", (req, res) => {
-    //console.log(req.body);
 
     const { firstName, lastName, email, password } = req.body;
 
@@ -99,11 +93,46 @@ app.post("/sign-up", (req, res) => {
 }});
 
 
-
+//Route to the Log-in Page
 app.get("/log-in", function(req, res){
     res.render("login");
 });
 
+//update for assignment 3
+app.post("/log-in", (req, res) => {
+
+    const { email, password } = req.body;
+
+    let passedValidation = true;
+    let validationMessages = {};
+
+    if ( email.trim().length == 0  && password.trim().length == 0) {
+        //email is not a string or is an empty string
+        passedValidation = false;
+        validationMessages.email = "Please enter your email address";
+        validationMessages.password = "Please enter the password";
+    }
+    else if (typeof email !== "string"  || email.trim().length == 0) {
+        //email is not a string or is an empty string
+        passedValidation = false;
+        validationMessages.email = "Please enter your email address";
+    }
+    //check password
+    else if ( typeof password !== "string" || password.trim().length ==0) {
+        passedValidation = false;
+        validationMessages.password = "Please enter the password";
+    }
+
+
+    if(passedValidation) {
+        res.send("Passed Validation");
+    }
+    else {
+        res.render("login", {
+            values: req.body,
+            validationMessages
+        });
+}});
 
 
 // *** DO NOT MODIFY THE LINES BELOW ***
