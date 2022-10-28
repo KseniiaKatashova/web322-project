@@ -1,27 +1,39 @@
 <h2>Sign up Page</h2>
+<div class="main-cont">
 
-<form method="post" action="/sign-up">
+    <form method="post" action="/sign-up">
 
-    <label for="firstName">First Name</label>
-    <input type="text" id="firstName" name="firstName" value="{{values.firstName}}" /><br/>
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" name="firstName" value="{{values.firstName}}" /><br/>
 
-    {{#if validationMessages.firstName}}
-        <span>{{validationMessages.firstName}}</span><br/>
-    {{/if}}
+        {{#if validationMessages.firstName}}
+            <span>{{validationMessages.firstName}}</span><br/>
+        {{/if}}
+            
+        <label for="lastName">Last Name</label>
+        <input type="text" id="laststName" name="lastName" value="{{values.lastName}}" /><br/>
         
-    <label for="lastName">Last Name</label>
-    <input type="text" id="laststName" name="lastName" value="{{values.lastName}}" /><br/>
+        {{#if validationMessages.lastName}}
+            <span>{{validationMessages.lastName}}</span><br/>
+        {{/if}}
 
-    <label for="email">Email Address</label>
-    <input type="text" id="email" name="email" value="{{values.email}}"/><br/>
+        <label for="email">Email Address</label>
+        <input type="text" id="email" name="email" value="{{values.email}}"/><br/>
 
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" value="{{values.password}}"/><br/>
-      
-    
-    <input type="submit" value="Sign Up"/>
+         {{#if validationMessages.email}}
+            <span>{{validationMessages.email}}</span><br/>
+        {{/if}}
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" value="{{values.password}}" /><br/>
+        
+        {{#if validationMessages.password}}
+            <span>{{validationMessages.password}}</span><br/>
+        {{/if}}
+        
+        <input type="submit" value="Sign Up"/>
 
 
-</form>
+    </form>
 
-
+</div>

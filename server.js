@@ -58,6 +58,8 @@ app.get("/menu", (req, res)=> {
     // });
 });
 
+
+
 //Route to the Sign Up Page
 app.get("/sign-up", function(req, res){
     res.render("signup");
@@ -74,13 +76,62 @@ app.post("/sign-up", (req, res) => {
     if (typeof firstName !== "string"  || firstName.trim().length == 0) {
         //first name is not a string or is an empty string
         passedValidation = false;
-        validationMessages.firstName = "You must specify a first name";
+        validationMessages.firstName = "Please enter your first name";
     }
     else if (typeof firstName !== "string"  || firstName.trim().length < 2) {
         //first name is not a string or is only a single character 
         passedValidation = false;
         validationMessages.firstName = "First name must contain at least 2 characters long";
     }
+
+    if (typeof lastName !== "string"  || lastName.trim().length == 0) {
+        //last name is not a string or is an empty string
+        passedValidation = false;
+        validationMessages.lastName = "Please enter your last name";
+    }
+
+
+    // check email 
+    var regExpEmail = /\S+@\S+\.\S+/;
+
+    if (email.trim().length == 0) {
+        //email is not an empty
+        passedValidation = false;
+        validationMessages.email = "Please enter email address";
+    }
+    else if(!regExpEmail.test(email)) {
+        passedValidation=false;
+        validationMessages.email = "Please emter valid email address";
+    }
+    
+    
+    //check PASSWORD
+    var minNumOfChar = 8;
+    var maxNumOfChar = 12;
+    var regExp = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,12}$/;
+
+    if(password.trim().length == 0){
+        passedValidation = false;
+        validationMessages.password = "Please enter your password";
+    }
+    else if(password.length < minNumOfChar || password.length > maxNumOfChar){
+        passedValidation = false;
+        validationMessages.password = "Password should be between 8 and 12 characters";
+    }
+    else if(!regExp.test(password)){
+        passedValidation = false;
+        validationMessages.password = "Password should contain atleast one number, special character, lowercase and uppercase letter";
+    }
+
+
+
+
+
+
+
+
+
+    // VALIDATION OF ALL CRITERIAS
 
     if(passedValidation) {
         res.send("Passed Validation");
@@ -107,7 +158,7 @@ app.post("/log-in", (req, res) => {
     let validationMessages = {};
 
     if ( email.trim().length == 0  && password.trim().length == 0) {
-        //email is not a string or is an empty string
+        //both email and password are empty
         passedValidation = false;
         validationMessages.email = "Please enter your email address";
         validationMessages.password = "Please enter the password";
@@ -117,8 +168,8 @@ app.post("/log-in", (req, res) => {
         passedValidation = false;
         validationMessages.email = "Please enter your email address";
     }
-    //check password
     else if ( typeof password !== "string" || password.trim().length ==0) {
+        //check password
         passedValidation = false;
         validationMessages.password = "Please enter the password";
     }
