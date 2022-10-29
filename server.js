@@ -15,6 +15,11 @@ const exphbs = require("express-handlebars");
 const express = require("express");
 const app = express();
 
+//Set up dotenv
+const dotenv = require("dotenv");
+dotenv.config({ path: "./config/keys.env" });
+
+
 const mealkitList = require("./models/mealkit-db");
 const { title } = require("process");
 
@@ -134,7 +139,34 @@ app.post("/sign-up", (req, res) => {
     // VALIDATION OF ALL CRITERIAS
 
     if(passedValidation) {
-        res.send("Passed Validation");
+        const sgMail = require("@sendgrid/mail");
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+        const msg = {
+            to: email,
+            from: "kkatashova@myseneca.ca",
+            subject: "Contact Us form Submission",
+            html: 
+                `Visitor's Full Name: ${firstName} ${lastName}<br>
+                Visitor's Email Address: ${email}<br>
+                Welcome on our team!<br>
+                `
+        };
+
+        sgMail.send(msg)
+            .then(() => {
+                res.send("Success, validation passed and email has been sent.");
+            })
+            .catch(err => {
+                console.log(err);
+
+                res.render("signup", {
+                    values: req.body,
+                    validationMessages
+                });
+            });
+
+        //res.send("Passed Validation");
     }
     else {
         res.render("signup", {
