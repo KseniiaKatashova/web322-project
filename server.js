@@ -130,12 +130,6 @@ app.post("/sign-up", (req, res) => {
 
 
 
-
-
-
-
-
-
     // VALIDATION OF ALL CRITERIAS
 
     if(passedValidation) {
@@ -150,12 +144,14 @@ app.post("/sign-up", (req, res) => {
                 `Visitor's Full Name: ${firstName} ${lastName}<br>
                 Visitor's Email Address: ${email}<br>
                 Welcome on our team!<br>
+                Kseniia Katashova from "Cool Beans"
                 `
         };
 
         sgMail.send(msg)
             .then(() => {
-                res.send("Success, validation passed and email has been sent.");
+                res.send("Success, validation passed and email has been sent.");    
+                
             })
             .catch(err => {
                 console.log(err);
@@ -165,8 +161,6 @@ app.post("/sign-up", (req, res) => {
                     validationMessages
                 });
             });
-
-        //res.send("Passed Validation");
     }
     else {
         res.render("signup", {
@@ -217,6 +211,12 @@ app.post("/log-in", (req, res) => {
         });
 }});
 
+
+
+//Route to the Welcome Page 
+app.get("/welcome", (req, res) =>{
+    res.render("welcome");
+});
 
 // *** DO NOT MODIFY THE LINES BELOW ***
 

@@ -236,44 +236,6 @@ label{
 
 
 /******** Login Page *********/
-/* .main-cont{
-    border-radius: 5px;
-    background-color: white;
-    padding: 20px;
-    
-}
-
-form {
-    border: 6px solid #f1f1f1;
-  }
-  
-  /* Full-width inputs */
-  /* input[type=text], input[type=password] {
-    width: 25%;
-    padding: 12px 20px;
-    margin: 4px 6px;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-  }
-
-
-.form-cont{
-    text-align: center;
-    margin: 24px 0 24px 0;
-}
-
-input[type=submit] {
-    background-color: #8a8a79;
-  color: white;
-  padding: 14px 20px;
-  margin: 6px 0;
-  border: none;
-  cursor: pointer;
-  width: 6%;
-} */
-
-  /* Add a background color and some padding around the form */
   .main-cont {
     width: 20%;
     border-radius: 5px;
@@ -282,19 +244,18 @@ input[type=submit] {
     margin-left: 40%;
   }
 
-/* Style inputs with type="text", select elements and textareas */
+
 input[type=text], [type=password]{
-    width: 100%; /* Full width */
-    padding: 12px; /* Some padding */ 
-    border: 1px solid #ccc; /* Gray border */
-    border-radius: 4px; /* Rounded borders */
-    box-sizing: border-box; /* Make sure that padding and width stays in place */
-    margin-top: 8px; /* Add a top margin */
-    margin-bottom: 2px; /* Bottom margin */
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc; 
+    border-radius: 4px;
+    box-sizing: border-box; 
+    margin-top: 8px; 
+    margin-bottom: 2px; 
    
   }
   
-  /* Style the submit button with a specific background color etc */
   input[type=submit] {
     background-color: #04AA6D;
     color: white;
@@ -304,7 +265,7 @@ input[type=text], [type=password]{
     cursor: pointer;
   }
   
-  /* When moving the mouse over the submit button, add a darker green color */
+
   input[type=submit]:hover {
     background-color: #45a049;
   }
@@ -312,3 +273,18 @@ input[type=text], [type=password]{
   label{
     font-size: large;
   }
+
+  /******** Welcome Page *********/
+  .welcome img{
+    width: 600px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .welcome h1{
+    text-align: center;
+    color: #4c6841;
+  }
+
+ 
