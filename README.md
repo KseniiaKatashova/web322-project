@@ -9,5 +9,5 @@ Student ID    : 138164207
 Course/Section: WEB322/NEE
 
 ## Project URLs
-GitHub Repo   : https://github.com/<repo_name>/
-Cyclic URL    : https://<app_name>.cyclic.app/
+GitHub Repo   : https://github.com/KseniiaKatashova/web322-kkatashova.git
+Cyclic URL    : https://funny-lab-coat-ray.cyclic.app 
