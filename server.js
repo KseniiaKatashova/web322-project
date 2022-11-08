@@ -20,8 +20,6 @@ const dotenv = require("dotenv");
 dotenv.config({ path: "./config/keys.env" });
 
 
-const mealkitList = require("./models/mealkit-db");
-const { title } = require("process");
 
 //Set up Handlebars
 app.engine(".hbs", exphbs.engine({
@@ -40,183 +38,14 @@ app.use(express.static(path.join(__dirname, "/assets")));
 
 
 
-// Add your routes here
-app.get("/", (req, res) => {
+//Configure the controllers
+const generalController = require("./controllers/general");
 
 
-    res.render("home", {
-        mealKits: mealkitList.getTopMealkits()
-    });
-});
+app.use("/", generalController);
 
 
 
-//Does not work properly!!!
-app.get("/menu", (req, res)=> {
-
-    
-     res.render("on-menu", {
-         mealKits: mealkitList.getAllMealKits()
-     });
-    // res.render("on-menu", {
-    //     mealkits: mealkitList.getMealsByCategory()
-    // });
-});
-
-
-
-//Route to the Sign Up Page
-app.get("/sign-up", function(req, res){
-    res.render("signup");
-});
-
-//update for assignment 3
-app.post("/sign-up", (req, res) => {
-
-    const { firstName, lastName, email, password } = req.body;
-
-    let passedValidation = true;
-    let validationMessages = {};
-
-    if (typeof firstName !== "string"  || firstName.trim().length == 0) {
-        //first name is not a string or is an empty string
-        passedValidation = false;
-        validationMessages.firstName = "Please enter your first name";
-    }
-    else if (typeof firstName !== "string"  || firstName.trim().length < 2) {
-        //first name is not a string or is only a single character 
-        passedValidation = false;
-        validationMessages.firstName = "First name must contain at least 2 characters long";
-    }
-
-    if (typeof lastName !== "string"  || lastName.trim().length == 0) {
-        //last name is not a string or is an empty string
-        passedValidation = false;
-        validationMessages.lastName = "Please enter your last name";
-    }
-
-
-    // check email 
-    var regExpEmail = /\S+@\S+\.\S+/;
-
-    if (email.trim().length == 0) {
-        //email is not an empty
-        passedValidation = false;
-        validationMessages.email = "Please enter email address";
-    }
-    else if(!regExpEmail.test(email)) {
-        passedValidation=false;
-        validationMessages.email = "Please emter valid email address";
-    }
-    
-    
-    //check PASSWORD
-    var minNumOfChar = 8;
-    var maxNumOfChar = 12;
-    var regExp = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,12}$/;
-
-    if(password.trim().length == 0){
-        passedValidation = false;
-        validationMessages.password = "Please enter your password";
-    }
-    else if(password.length < minNumOfChar || password.length > maxNumOfChar){
-        passedValidation = false;
-        validationMessages.password = "Password should be between 8 and 12 characters";
-    }
-    else if(!regExp.test(password)){
-        passedValidation = false;
-        validationMessages.password = "Password should contain atleast one number, special character, lowercase and uppercase letter";
-    }
-
-
-
-    // VALIDATION OF ALL CRITERIAS
-
-    if(passedValidation) {
-        const sgMail = require("@sendgrid/mail");
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
-        const msg = {
-            to: email,
-            from: "kkatashova@myseneca.ca",
-            subject: "Contact Us form Submission",
-            html: 
-                `Visitor's Full Name: ${firstName} ${lastName}<br>
-                Visitor's Email Address: ${email}<br>
-                Welcome on our team!<br>
-                Kseniia Katashova from "Cool Beans"
-                `
-        };
-
-        sgMail.send(msg)
-            .then(() => {
-                res.send("Success, validation passed and email has been sent.");    
-                
-            })
-            .catch(err => {
-                console.log(err);
-
-                res.render("signup", {
-                    values: req.body,
-                    validationMessages
-                });
-            });
-    }
-    else {
-        res.render("signup", {
-            values: req.body,
-            validationMessages
-        });
-}});
-
-
-//Route to the Log-in Page
-app.get("/log-in", function(req, res){
-    res.render("login");
-});
-
-//update for assignment 3
-app.post("/log-in", (req, res) => {
-
-    const { email, password } = req.body;
-
-    let passedValidation = true;
-    let validationMessages = {};
-
-    if ( email.trim().length == 0  && password.trim().length == 0) {
-        //both email and password are empty
-        passedValidation = false;
-        validationMessages.email = "Please enter your email address";
-        validationMessages.password = "Please enter the password";
-    }
-    else if (typeof email !== "string"  || email.trim().length == 0) {
-        //email is not a string or is an empty string
-        passedValidation = false;
-        validationMessages.email = "Please enter your email address";
-    }
-    else if ( typeof password !== "string" || password.trim().length ==0) {
-        //check password
-        passedValidation = false;
-        validationMessages.password = "Please enter the password";
-    }
-
-
-    if(passedValidation) {
-        res.send("Passed Validation");
-    }
-    else {
-        res.render("login", {
-            values: req.body,
-            validationMessages
-        });
-}});
-
-
-
-//Route to the Welcome Page 
-app.get("/welcome", (req, res) =>{
-    res.render("welcome");
-});
 
 // *** DO NOT MODIFY THE LINES BELOW ***
 
