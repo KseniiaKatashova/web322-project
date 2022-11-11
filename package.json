@@ -1,5 +1,5 @@
 {
-  "name": "assignment3",
+  "name": "assignment4",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -13,6 +13,7 @@
     "@sendgrid/mail": "^7.7.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
-    "express-handlebars": "^6.0.6"
+    "express-handlebars": "^6.0.6",
+    "mongoose": "^6.7.2"
   }
 }

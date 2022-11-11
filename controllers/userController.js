@@ -1,44 +1,19 @@
+const userModel = require("../models/userModel");
 const express = require("express");
 const router = express.Router();
-const mealkitList = require("../models/mealkit-db");
 
-//Add your routs here
-//e.g. app.get() (...)
-router.get("/", (req, res) => {
-    res.render("general/home", {
-        title: "Home Page",
-        mealKits: mealkitList.getTopMealkits()
-    });
-});
-
-
-
-//Does not work properly!!!
-router.get("/menu", (req, res)=> {
-    res.render("general/on-menu", {
-        title: "MENU Page",
-        mealKits: mealkitList.getAllMealKits()
-    });
-   // res.render("on-menu", {
-   //     mealkits: mealkitList.getMealsByCategory()
-   // });
-});
-
-
-
-
-
-
-
-//Add routes to the "Contact-us Page/Sign Up Page"
+//(GET) User registration page
 router.get("/sign-up", (req, res) => {
-    res.render("general/signup", {
+    res.render("user/signup", {
         title: "Sign Up"
     });
 });
 
 
-//update for assignment 3
+
+
+
+//(POST) User registration page
 router.post("/sign-up", (req, res) => {
 
     const { firstName, lastName, email, password } = req.body;
@@ -125,83 +100,67 @@ router.post("/sign-up", (req, res) => {
 
         sgMail
             .send(msg)
+            //then create a user account in the database
             .then(() => {
-               // res.send("Success, validation passed and email has been sent.");    
-                res.redirect("/welcome");
+                //Updates for Assignment 4
+                const user = new userModel({
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName,
+                    email: req.body.email,
+                    password: req.body.password,
+                });
+
+                user.save()
+                    .then(userSaved => {
+                        console.log(`User ${userSaved.firstName} has been added to the database.`);
+                        
+                    })
+                    .catch(err => {
+                        console.log(`Error adding user to the database...${err}`);
+                    
+                    });
+                })
+            .then(() => {
+            // res.send("Success, validation passed and email has been sent.");    
+                 res.redirect("/welcome");
             })
             .catch((err) => {
-                console.log(err);
+                 console.log(err);
 
-                res.render("general/signup", {
-                    title: "Sign-up",
+                res.render("user/signup", { 
+                     title: "Sign-up",
                     values: req.body,
                     validationMessages
                 });
             });
-    }
-    else {
-        res.render("general/signup", {
-            title: "Sign-up",
-            values: req.body,
-            validationMessages
-        });
+        }
+        else {
+            res.render("user/signup", {
+                title: "Sign-up",
+                values: req.body,
+                validationMessages
+            });
+
+
+
+
+        //Updates for Assignment 4
+        // const user = new userModel({
+        //     firstName: req.body.firstName,
+        //     lastName: req.body.lastName,
+        //     email: req.body.email,
+        //     password: req.body.password,
+        // });
+
+        // user.save()
+        // .then(userSaved => {
+        //     console.log(`User ${userSaved.firstName} has been added to the database.`);
+        //     res.redirect("/");
+        // })
+        // .catch(err => {
+        //     console.log(`Error adding user to the database...${err}`);
+        //    // res.redirect("")
+        // });
 }});
-
-
-
-
-
-//Route to the Log-in Page
-router.get("/log-in", (req, res) => {
-    res.render("general/login", {
-        title: "Login Page"
-    });
-});
-
-//update for assignment 3
-router.post("/log-in", (req, res) => {
-
-    const { email, password } = req.body;
-
-    let passedValidation = true;
-    let validationMessages = {};
-
-    if ( email.trim().length == 0  && password.trim().length == 0) {
-        //both email and password are empty
-        passedValidation = false;
-        validationMessages.email = "Please enter your email address";
-        validationMessages.password = "Please enter the password";
-    }
-    else if (typeof email !== "string"  || email.trim().length == 0) {
-        //email is not a string or is an empty string
-        passedValidation = false;
-        validationMessages.email = "Please enter your email address";
-    }
-    else if ( typeof password !== "string" || password.trim().length ==0) {
-        //check password
-        passedValidation = false;
-        validationMessages.password = "Please enter the password";
-    }
-  
-     
-
-    if (passedValidation) {
-        res.send("Passed Validation");
-    }
-    else {
-        res.render("general/login", {
-            title: "Login Page",
-            values: req.body,
-            validationMessages
-        });
-}});
-
-
-//Route to the Welcome Page 
-router.get("/welcome", (req, res) =>{
-    res.render("general/welcome", {
-        title: "Welcome Page"
-    });
-});
 
 module.exports = router;

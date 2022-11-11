@@ -14,6 +14,7 @@ const path = require("path");
 const exphbs = require("express-handlebars");
 const express = require("express");
 const app = express();
+const mongoose = require("mongoose");
 
 //Set up dotenv
 const dotenv = require("dotenv");
@@ -30,19 +31,35 @@ app.engine(".hbs", exphbs.engine({
 app.set("view engine", ".hbs");
 
 //Set up body-parser
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: true}));   
+
+//Connect to the MongoDb
+mongoose.connect(process.env.MONGODB_KEY,     
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    }).then(() =>{
+        console.log("Connected to the MongoDB database.")
+    })
+    .catch(err => {
+        console.log(`There was a problem connecting to MongoDB...${err}`);
+    });
 
 
-// make "assets" folder public and static 
+
+
+// Make "assets" folder public and static 
 app.use(express.static(path.join(__dirname, "/assets")));
 
 
 
 //Configure the controllers
-const generalController = require("./controllers/general");
-
+const generalController = require("./controllers/generalController");
+const userController = require("./controllers/userController");
 
 app.use("/", generalController);
+app.use("/user/", userController);
+
 
 
 
