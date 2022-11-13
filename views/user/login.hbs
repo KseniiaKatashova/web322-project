@@ -1,11 +1,13 @@
 {{!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
   integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous"> --}}
-<h2>Welcome back</h2>
+<h2>Login User</h2>
 
+{{#each errors}}
+  <p style="color:red;">{{this}}></p>
+{{/each}}
 <div class="main-cont">
   
-
-  <form method="post" action="/log-in">
+  <form method="post" action="/user/log-in">
    
       <label for="email">Email</label>
       <input type="text" id="email" name="email" value="{{values.email}}"/><br/>

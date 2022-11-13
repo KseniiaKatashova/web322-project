@@ -1,6 +1,9 @@
 const userModel = require("../models/userModel");
+const bcrypt = require("bcryptjs");
+
 const express = require("express");
 const router = express.Router();
+
 
 //(GET) User registration page
 router.get("/sign-up", (req, res) => {
@@ -140,27 +143,116 @@ router.post("/sign-up", (req, res) => {
                 values: req.body,
                 validationMessages
             });
-
-
-
-
-        //Updates for Assignment 4
-        // const user = new userModel({
-        //     firstName: req.body.firstName,
-        //     lastName: req.body.lastName,
-        //     email: req.body.email,
-        //     password: req.body.password,
-        // });
-
-        // user.save()
-        // .then(userSaved => {
-        //     console.log(`User ${userSaved.firstName} has been added to the database.`);
-        //     res.redirect("/");
-        // })
-        // .catch(err => {
-        //     console.log(`Error adding user to the database...${err}`);
-        //    // res.redirect("")
-        // });
 }});
+
+
+//(GET) Route to a registration page
+router.get("/log-in", (req, res) => {
+    res.render("user/login", {
+        title: "Login Page"
+    });
+});
+
+//(POST) Route to a registration page
+router.post("/log-in", (req, res) => {
+
+    const { email, password } = req.body;
+
+    let passedValidation = true;
+    let validationMessages = {};
+
+    if ( email.trim().length == 0  && password.trim().length == 0) {
+        //both email and password are empty
+        passedValidation = false;
+        validationMessages.email = "Please enter your email address";
+        validationMessages.password = "Please enter the password";
+    }
+    else if (typeof email !== "string"  || email.trim().length == 0) {
+        //email is not a string or is an empty string
+        passedValidation = false;
+        validationMessages.email = "Please enter your email address";
+    }
+    else if ( typeof password !== "string" || password.trim().length ==0) {
+        //check password
+        passedValidation = false;
+        validationMessages.password = "Please enter the password";
+    }
+  
+     
+
+    if (passedValidation) {
+        //    res.send("Passed Validation");
+
+        // Updated for the Assignment 4
+         let errors = [];
+
+         //Search MongoDB for the matching document (base on email address)
+         userModel.findOne({
+            email: req.body.email
+         })
+         .then(user => {
+            //Completed the search
+            if(user){
+                //Found the user document
+                //Compare the password submitted to the password in the document
+                bcrypt.compare(req.body.password, user.password)
+                .then(isMatched => {
+                    //Done comparing password
+
+                    if(isMatched){
+                        //Password match
+                         
+                        res.redirect("/");  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Update route to the  dashboard!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    }
+                    else{
+                        //Password are different
+                        errors.push("Password does not match the database.");
+                        console.log(errors[0]);
+        
+                        res.render("user/login", {
+                            errors
+                        });
+                    }
+                })
+            }
+            else{
+                //User was not found
+                errors.push("Email was not found in the database.");
+                console.log(errors[0]);
+
+                res.render("user/login", {
+                    errors
+                });
+            }
+         })
+         .catch(err => {
+            //Couldn't query the database
+            errors.push("Error finding the user in the database..." + err);
+             console.log(errors[0]);
+
+             res.render("user/login", {
+                errors
+             });
+         });
+
+
+
+
+
+
+    }
+    else {
+        res.render("user/login", {
+            title: "Login Page",
+            values: req.body,
+            validationMessages
+        });
+}});
+
+
+
+
+
+
 
 module.exports = router;

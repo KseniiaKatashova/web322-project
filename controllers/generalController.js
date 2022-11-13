@@ -153,49 +153,49 @@ router.get("/menu", (req, res)=> {
 
 
 //Route to the Log-in Page
-router.get("/log-in", (req, res) => {
-    res.render("general/login", {
-        title: "Login Page"
-    });
-});
+// router.get("/log-in", (req, res) => {
+//     res.render("general/login", {
+//         title: "Login Page"
+//     });
+// });
 
 //update for assignment 3
-router.post("/log-in", (req, res) => {
+// router.post("/log-in", (req, res) => {
 
-    const { email, password } = req.body;
+//     const { email, password } = req.body;
 
-    let passedValidation = true;
-    let validationMessages = {};
+//     let passedValidation = true;
+//     let validationMessages = {};
 
-    if ( email.trim().length == 0  && password.trim().length == 0) {
-        //both email and password are empty
-        passedValidation = false;
-        validationMessages.email = "Please enter your email address";
-        validationMessages.password = "Please enter the password";
-    }
-    else if (typeof email !== "string"  || email.trim().length == 0) {
-        //email is not a string or is an empty string
-        passedValidation = false;
-        validationMessages.email = "Please enter your email address";
-    }
-    else if ( typeof password !== "string" || password.trim().length ==0) {
-        //check password
-        passedValidation = false;
-        validationMessages.password = "Please enter the password";
-    }
+//     if ( email.trim().length == 0  && password.trim().length == 0) {
+//         //both email and password are empty
+//         passedValidation = false;
+//         validationMessages.email = "Please enter your email address";
+//         validationMessages.password = "Please enter the password";
+//     }
+//     else if (typeof email !== "string"  || email.trim().length == 0) {
+//         //email is not a string or is an empty string
+//         passedValidation = false;
+//         validationMessages.email = "Please enter your email address";
+//     }
+//     else if ( typeof password !== "string" || password.trim().length ==0) {
+//         //check password
+//         passedValidation = false;
+//         validationMessages.password = "Please enter the password";
+//     }
   
      
 
-    if (passedValidation) {
-        res.send("Passed Validation");
-    }
-    else {
-        res.render("general/login", {
-            title: "Login Page",
-            values: req.body,
-            validationMessages
-        });
-}});
+//     if (passedValidation) {
+//         res.send("Passed Validation");
+//     }
+//     else {
+//         res.render("general/login", {
+//             title: "Login Page",
+//             values: req.body,
+//             validationMessages
+//         });
+// }});
 
 
 //Route to the Welcome Page 
