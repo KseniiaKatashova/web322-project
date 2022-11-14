@@ -202,6 +202,9 @@ router.post("/log-in", (req, res) => {
                     if(isMatched){
                         //Password match
                          
+                        //Create a new session and store the user object
+                        req.session.user = user;
+
                         res.redirect("/");  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Update route to the  dashboard!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     }
                     else{
@@ -237,9 +240,6 @@ router.post("/log-in", (req, res) => {
 
 
 
-
-
-
     }
     else {
         res.render("user/login", {
@@ -250,7 +250,13 @@ router.post("/log-in", (req, res) => {
 }});
 
 
+//(GET) Route to a Log-out Page
+router.get("/logout", (req, res) => {
+    //Clear the session from memory
+    req.session.destroy();
 
+    res.redirect("/user/log-in");
+});
 
 
 
