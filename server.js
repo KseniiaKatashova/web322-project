@@ -58,6 +58,7 @@ app.use((req, res, next) => {
     //res.locals.user is a global handlebars variable
     //This means that every single handlebars file can access this variable
     res.locals.user = req.session.user;
+    res.locals.isClerk = req.session.isClerk;
     next();
 });
 
@@ -71,10 +72,14 @@ app.use(express.static(path.join(__dirname, "/assets")));
 const generalController = require("./controllers/generalController");
 const userController = require("./controllers/userController");
 
+const clerkController = require("./controllers/clerkController");
+const customerController = require("./controllers/customerController");
+
 app.use("/", generalController);
 app.use("/user/", userController);
 
-
+app.use("/clerk/", clerkController);
+app.use("/customer/", customerController);
 
 
 

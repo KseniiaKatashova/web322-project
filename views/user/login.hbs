@@ -1,5 +1,3 @@
-{{!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-  integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous"> --}}
 <h2>Login User</h2>
 
 {{#each errors}}
@@ -23,6 +21,11 @@
         <span>{{validationMessages.password}}</span><br/>
       {{/if}}
         
+      <label for="isClerk">Are you a data entry  clerk?<br/>
+            <input id="yes" type="radio" name="clerk" value="yes" /><label for="yes">Yes</label><br/>
+            <input id="no" type="radio" name="clerk" value="no" /><label for="no">No</label></label><br>
+      </label>
+
       
       <input type="submit" value="Log In"/>
 

@@ -8,13 +8,28 @@
                 <li><a href="/" class="nav-link">Home</a></li>
                 <li><a href="/menu" class="nav-link">On the menu</a></li>
                 {{!-- <li><a href="/user/sign-up" class="nav-link">Sign-Up</a></li>   --}}
-                {{#if user}}
-                <li>Hello {{user.firstName}}</li>
+
+                <div class="top-line-right">
+                {{#if isClerk}}
+                <li>Hello <a href="/clerk/list-mealkits"> {{user.firstName}}</a></li>
                 <li><a href="/user/logout" class="nav-link">Log-out</a></li>
+
+                {{else if user}}
+                <li>Hello <a href="/customer/cart"> {{user.firstName}}</a></li>
+                <li><a href="/user/logout" class="nav-link">Log-out</a></li>
+
+
                 {{else}}
                 <li><a href="/user/log-in" class="nav-link">Log-In</a></li>
                 <li><a href="/user/sign-up" class="nav-link">Sign-Up</a></li> 
                 {{/if}}
+
+
+
+
+
+
+                </div>
             </ul>
         </nav>
 </div>

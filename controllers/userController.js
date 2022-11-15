@@ -156,7 +156,7 @@ router.get("/log-in", (req, res) => {
 //(POST) Route to a registration page
 router.post("/log-in", (req, res) => {
 
-    const { email, password } = req.body;
+    const { email, password, isClerk } = req.body;
 
     let passedValidation = true;
     let validationMessages = {};
@@ -203,9 +203,20 @@ router.post("/log-in", (req, res) => {
                         //Password match
                          
                         //Create a new session and store the user object
+                        // if(req.session.isClerk = req.body.clerk === "yes"){
+                        //     res.redirect("/clerk/list-mealkits");
+                        // }
+                        // else{
+                        //     req.session.user = user;
+                        
+                        //     res.redirect("/");  //!!!!!!!!!!!!!!!!!!!!!!!!!! Update route to the  dashboard!!!
+                        // }
+
+                        req.session.isClerk = req.body.clerk === "yes"
                         req.session.user = user;
 
-                        res.redirect("/");  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Update route to the  dashboard!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        res.redirect("/");
+
                     }
                     else{
                         //Password are different
